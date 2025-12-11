@@ -1,8 +1,16 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Satellite, Tv, Wrench, Camera, ArrowRight } from "lucide-react";
+import { Satellite, Wifi, Wrench, Camera, ArrowRight } from "lucide-react";
 
 const Services = () => {
+  // Função para rolar até a seção de contato suavemente
+  const scrollToContact = () => {
+    const element = document.getElementById("contato");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const services = [
     {
       icon: Satellite,
@@ -12,11 +20,11 @@ const Services = () => {
       features: ["Até 25 Mbps", "Instalação Grátis", "Cobertura Total", "Suporte 24h"],
     },
     {
-      icon: Tv,
-      title: "SKY TV",
-      description: "Venda, instalação e manutenção da melhor programação de TV por assinatura. Planos pré-pago e pós-pago disponíveis.",
+      icon: Wifi, 
+      title: "Starlink - Alta Performance",
+      description: "A internet via satélite mais avançada do mundo. Ideal para quem precisa de muita velocidade, baixa latência para jogos e chamadas de vídeo.",
       color: "secondary",
-      features: ["HD e 4K", "Centenas de Canais", "SKY Pré-pago", "Instalação Rápida"],
+      features: ["Alta Velocidade", "Baixa Latência", "Revenda e Instalação", "Kit a Pronta Entrega"],
     },
     {
       icon: Wrench,
@@ -30,7 +38,7 @@ const Services = () => {
       title: "Segurança Eletrônica",
       description: "Instalação de câmeras de segurança e equipamentos para proteger seu patrimônio com tecnologia de ponta.",
       color: "secondary",
-      features: ["Câmeras HD", "Acesso Remoto", "Gravação em Nuvem", "Instalação Profissional"],
+      features: ["Câmeras HD/Wi-Fi", "Acesso pelo Celular", "Gravação em Nuvem", "Instalação Profissional"],
     },
   ];
 
@@ -42,7 +50,7 @@ const Services = () => {
             Nossos <span className="text-primary">Serviços</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Soluções completas em conectividade, entretenimento e segurança para você
+            Soluções completas em conectividade e segurança para o campo e a cidade
           </p>
         </div>
 
@@ -78,10 +86,17 @@ const Services = () => {
                     </li>
                   ))}
                 </ul>
-                <Button variant="outline" className="group-hover:bg-primary group-hover:text-primary-foreground transition-all">
+                
+                {/* BOTÃO ATUALIZADO COM AÇÃO DE CLIQUE */}
+                <Button 
+                  variant="outline" 
+                  className="group-hover:bg-primary group-hover:text-primary-foreground transition-all w-full sm:w-auto"
+                  onClick={scrollToContact}
+                >
                   Saiba Mais
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
+
               </Card>
             );
           })}

@@ -1,67 +1,306 @@
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Image as ImageIcon,
+  Wifi,
+  Shield,
+  Truck,
+  Plus,
+  Store,
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+
+// --- IMPORTAÇÃO DAS IMAGENS ---
+// Certifique-se que os nomes aqui batem com os arquivos na pasta src/assets
+
+// Destaques e Internet
+import starlinkRoof from "@/assets/starlink-roof.jpg";
+import teamHughes2 from "@/assets/team-hughesnet2.jpg"; // Técnico com cliente
+import techFarm from "@/assets/tech-farm.jpg"; // Arte Tecnologia
+import hughesPole from "@/assets/hughesnet-pole.jpg"; // Antena no poste
+
+// Segurança
+import cameraTree from "@/assets/camera-tree.jpg";
+import installCamera from "@/assets/install-camera.jpg"; // Técnico na escada
+
+// Equipe e Frota
+import teamHughes from "@/assets/team-hughesnet.jpg"; // 3 técnicos
+import carRoad from "@/assets/car-road.jpg";
+
+// Loja (Estoque/Interior)
+import storeCameras from "@/assets/store-cameras.jpg"; // Caixas de câmera
+// Se tiver as fotos antigas da loja, mantenha aqui:
 import storeFront from "@/assets/store-front.jpg";
-import storeSignage from "@/assets/store-signage.jpg";
-import storeExterior from "@/assets/store-exterior.jpg";
-import ruralInstallation from "@/assets/rural-installation.jpg";
+
+// Tipo para os itens da galeria
+type MediaItem = {
+  id: number;
+  category: "internet" | "seguranca" | "equipe" | "loja";
+  src: string;
+  alt: string;
+  title: string;
+  description?: string;
+  badge?: "Starlink" | "HughesNet" | "Novo"; // Etiquetas especiais
+  highlight?: boolean; // Se for true, a borda brilha (para Starlink)
+};
+
+const allMediaItems: MediaItem[] = [
+  // --- STARLINK & INTERNET ---
+  {
+    id: 1,
+    category: "internet",
+    src: starlinkRoof,
+    alt: "Antena Starlink",
+    title: "Instalação Starlink",
+    description: "Alta velocidade via satélite LEO",
+    badge: "Starlink",
+    highlight: true,
+  },
+  {
+    id: 2,
+    category: "internet",
+    src: techFarm,
+    alt: "Tecnologia na Fazenda",
+    title: "Conexão no Campo",
+    badge: "HughesNet",
+  },
+  {
+    id: 3,
+    category: "internet",
+    src: hughesPole,
+    alt: "Instalação HughesNet",
+    title: "Internet Rural Estável",
+    badge: "HughesNet",
+  },
+  {
+    id: 4,
+    category: "internet",
+    src: teamHughes2,
+    alt: "Atendimento ao Cliente",
+    title: "Satisfação Garantida",
+    description: "Levamos a conexão até você",
+  },
+
+  // --- SEGURANÇA ---
+  {
+    id: 5,
+    category: "seguranca",
+    src: cameraTree,
+    alt: "Câmera na árvore",
+    title: "Monitoramento Rural",
+    description: "Instalações estratégicas e camufladas",
+  },
+  {
+    id: 6,
+    category: "seguranca",
+    src: installCamera,
+    alt: "Técnico instalando câmera",
+    title: "Instalação Profissional",
+    description: "Equipe qualificada em altura",
+  },
+
+  // --- EQUIPE & FROTA ---
+  {
+    id: 7,
+    category: "equipe",
+    src: carRoad,
+    alt: "Carro na estrada",
+    title: "Atendemos em Toda Região",
+    description: "Chegamos onde ninguém mais chega",
+  },
+  {
+    id: 8,
+    category: "equipe",
+    src: teamHughes,
+    alt: "Time Globo Sat",
+    title: "Técnicos Certificados",
+    description: "Confiança e segurança para sua família",
+  },
+
+  // --- LOJA ---
+  {
+    id: 9,
+    category: "loja",
+    src: storeCameras,
+    alt: "Estoque de Câmeras",
+    title: "Produtos a Pronta Entrega",
+    badge: "Novo",
+  },
+  {
+    id: 10,
+    category: "loja",
+    src: storeFront,
+    alt: "Fachada da Loja",
+    title: "Visite Nossa Loja",
+    description: "No centro de Arinos",
+  },
+];
 
 const Gallery = () => {
-  const images = [
-    { src: storeFront, alt: "Fachada da Loja Globosat" },
-    { src: storeSignage, alt: "Sinalização da Loja" },
-    { src: storeExterior, alt: "Vista Externa da Loja" },
-    { src: ruralInstallation, alt: "Instalação de Antena Rural" },
-  ];
+  const [visibleCount, setVisibleCount] = useState(8);
+
+  const getFilteredItems = (category: string) => {
+    if (category === "todos") return allMediaItems;
+    return allMediaItems.filter((item) => item.category === category);
+  };
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 4);
+  };
 
   return (
-    <section id="galeria" className="py-20 bg-background">
+    <section id="galeria" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-up">
+        <div className="text-center mb-12 animate-fade-up">
+          <div className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-1.5 rounded-full mb-4 shadow-sm">
+            <Wifi className="h-4 w-4 text-blue-600" />
+            <span className="font-semibold text-sm text-foreground">
+              Credenciado Starlink & HughesNet
+            </span>
+          </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Nossa <span className="text-primary">Galeria</span>
+            Galeria de <span className="text-primary">Serviços</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Conheça nossa estrutura e alguns de nossos trabalhos realizados
+            Veja como levamos tecnologia de ponta para o campo e a cidade.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className="group relative overflow-hidden rounded-xl shadow-medium hover:shadow-strong transition-all duration-500 animate-fade-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="aspect-square overflow-hidden">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                <p className="text-white font-semibold p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                  {image.alt}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Tabs defaultValue="todos" className="w-full animate-fade-up">
+          {/* Menu de Abas (Scrollável no mobile) */}
+          <div className="flex justify-center mb-10 overflow-x-auto pb-4 scrollbar-hide">
+            <TabsList className="h-auto p-1 bg-white shadow-sm border rounded-full gap-2">
+              <TabsTrigger
+                value="todos"
+                className="rounded-full px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-white"
+              >
+                Todos
+              </TabsTrigger>
+              <TabsTrigger
+                value="internet"
+                className="rounded-full px-4 py-2 gap-2 data-[state=active]:bg-primary data-[state=active]:text-white"
+              >
+                <Wifi className="h-4 w-4" /> Internet
+              </TabsTrigger>
+              <TabsTrigger
+                value="seguranca"
+                className="rounded-full px-4 py-2 gap-2 data-[state=active]:bg-primary data-[state=active]:text-white"
+              >
+                <Shield className="h-4 w-4" /> Segurança
+              </TabsTrigger>
+              <TabsTrigger
+                value="equipe"
+                className="rounded-full px-4 py-2 gap-2 data-[state=active]:bg-primary data-[state=active]:text-white"
+              >
+                <Truck className="h-4 w-4" /> Frota
+              </TabsTrigger>
+              <TabsTrigger
+                value="loja"
+                className="rounded-full px-4 py-2 gap-2 data-[state=active]:bg-primary data-[state=active]:text-white"
+              >
+                <Store className="h-4 w-4" /> Loja
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
-        <div className="text-center mt-12 animate-fade-up">
-          <p className="text-muted-foreground mb-6">
-            Acompanhe nosso Instagram para mais fotos e novidades
-          </p>
-          <a
-            href="https://instagram.com/globo.sat"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-semibold transition-colors"
-          >
-            <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-            @globo.sat
-          </a>
-        </div>
+          {["todos", "internet", "seguranca", "equipe", "loja"].map(
+            (tabValue) => {
+              const items = getFilteredItems(tabValue);
+              const visibleItems = items.slice(0, visibleCount);
+              const hasMore = items.length > visibleCount;
+
+              return (
+                <TabsContent
+                  key={tabValue}
+                  value={tabValue}
+                  className="space-y-8 mt-0"
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {visibleItems.map((item) => (
+                      <Dialog key={item.id}>
+                        <DialogTrigger asChild>
+                          <Card
+                            className={`group relative overflow-hidden cursor-pointer border-0 rounded-xl aspect-[4/5] shadow-md hover:shadow-xl transition-all duration-300 ${
+                              item.highlight
+                                ? "ring-2 ring-primary ring-offset-2"
+                                : ""
+                            }`}
+                          >
+                            <img
+                              src={item.src}
+                              alt={item.alt}
+                              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+
+                            {/* Etiqueta (Badge) */}
+                            {item.badge && (
+                              <div className="absolute top-3 right-3 z-20">
+                                <Badge
+                                  className={`${
+                                    item.badge === "Starlink"
+                                      ? "bg-black text-white hover:bg-black/90"
+                                      : item.badge === "HughesNet"
+                                      ? "bg-blue-600 text-white hover:bg-blue-700"
+                                      : "bg-white text-black hover:bg-white/90"
+                                  } font-bold shadow-lg`}
+                                >
+                                  {item.badge}
+                                </Badge>
+                              </div>
+                            )}
+
+                            {/* Legenda flutuante */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                              <p className="text-white font-bold text-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                {item.title}
+                              </p>
+                              {item.description && (
+                                <p className="text-white/80 text-sm mt-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+                                  {item.description}
+                                </p>
+                              )}
+                              <div className="flex items-center gap-2 text-primary text-sm mt-3 font-semibold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                                <ImageIcon className="h-4 w-4" />
+                                <span>Ampliar foto</span>
+                              </div>
+                            </div>
+                          </Card>
+                        </DialogTrigger>
+
+                        <DialogContent className="max-w-5xl w-[95vw] p-0 overflow-hidden bg-black/95 border-none">
+                          <div className="relative flex items-center justify-center h-[80vh]">
+                            <img
+                              src={item.src}
+                              alt={item.alt}
+                              className="max-h-full max-w-full object-contain"
+                            />
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    ))}
+                  </div>
+
+                  {hasMore && (
+                    <div className="flex justify-center pt-8">
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        onClick={handleLoadMore}
+                        className="gap-2 bg-white hover:bg-gray-50"
+                      >
+                        <Plus className="h-4 w-4" />
+                        Ver Mais Fotos
+                      </Button>
+                    </div>
+                  )}
+                </TabsContent>
+              );
+            }
+          )}
+        </Tabs>
       </div>
     </section>
   );

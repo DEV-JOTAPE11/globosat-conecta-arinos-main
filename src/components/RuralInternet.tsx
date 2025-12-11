@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, Zap, Globe, HeadphonesIcon } from "lucide-react";
-import ruralImage from "@/assets/rural-installation.jpg";
+import ruralImage from "@/assets/team-hughesnet2.jpg";
 
 const RuralInternet = () => {
   const benefits = [
@@ -18,6 +18,7 @@ const RuralInternet = () => {
   return (
     <section id="internet-rural" className="py-20 bg-gradient-to-br from-secondary/5 to-primary/5">
       <div className="container mx-auto px-4">
+        {/* ... (cabeçalho da seção igual) ... */}
         <div className="text-center mb-16 animate-fade-up">
           <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary px-4 py-2 rounded-full mb-4">
             <Zap className="h-4 w-4" />
@@ -33,6 +34,7 @@ const RuralInternet = () => {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           <div className="space-y-8 animate-fade-up">
+            {/* ... (conteúdo de texto e benefícios igual) ... */}
             <div>
               <h3 className="text-3xl font-bold mb-6">
                 A melhor internet para o campo
@@ -91,15 +93,18 @@ const RuralInternet = () => {
             </div>
           </div>
 
-          <div className="animate-fade-up" style={{ animationDelay: "0.2s" }}>
+          {/* PARTE ALTERADA: IMAGEM MENOR E CENTRALIZADA */}
+          <div className="animate-fade-up flex justify-center" style={{ animationDelay: "0.2s" }}>
             <img
               src={ruralImage}
               alt="Instalação Internet Rural"
-              className="rounded-2xl shadow-strong hover:scale-105 transition-transform duration-500"
+              // Adicionei w-full, max-w-md (limita largura) e object-cover
+              className="rounded-2xl shadow-strong hover:scale-105 transition-transform duration-500 w-full max-w-md object-cover"
             />
           </div>
         </div>
 
+        {/* ... (restante do código igual) ... */}
         <Card className="p-8 md:p-12 bg-gradient-to-r from-secondary to-primary text-white animate-fade-up">
           <div className="text-center max-w-3xl mx-auto">
             <h3 className="text-3xl font-bold mb-4">

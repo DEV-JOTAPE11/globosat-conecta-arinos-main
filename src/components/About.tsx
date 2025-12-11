@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Award, Users, Shield, MapPin } from "lucide-react";
-import storeImage from "@/assets/store-front.jpg";
+import storeImage from "@/assets/unnamed.webp";
 
 const About = () => {
   return (
@@ -35,8 +35,8 @@ const About = () => {
               para quem vive na zona rural.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Somos parceiros credenciados das maiores marcas do mercado como <strong className="text-secondary">HughesNet</strong>, 
-              <strong className="text-secondary"> SKY</strong> e <strong className="text-secondary">Elsys</strong>, 
+              Somos parceiros credenciados das maiores marcas do mercado como <strong className="text-secondary">HughesNet</strong> e
+              <strong className="text-secondary"> Star-link</strong>, 
               oferecendo produtos de qualidade e assistência técnica especializada.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
@@ -52,7 +52,7 @@ const About = () => {
             <Award className="h-12 w-12 text-primary mb-4" />
             <h4 className="text-xl font-bold mb-2">Parceiro Credenciado</h4>
             <p className="text-muted-foreground">
-              Autorizado HughesNet, SKY e Elsys com garantia de fábrica
+              Autorizado HughesNet, SKY e Star-link com garantia de fábrica
             </p>
           </Card>
 
