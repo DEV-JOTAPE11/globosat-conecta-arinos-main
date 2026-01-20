@@ -1,5 +1,9 @@
 # 📡 Globo Sat Antenas - Conecta Arinos
 
+<p align="center">
+  <img alt="Preview do Portfólio" src="public/globosat-print.png" width="100%" style="border-radius: 8px; border: 2px solid #00eeff;">
+</p>
+
 Website institucional moderno e responsivo desenvolvido para a **Globo Sat Antenas**, empresa referência em conectividade rural e segurança eletrônica em Arinos-MG e região.
 
 ![Status do Projeto](https://img.shields.io/badge/Status-Finalizado-brightgreen)
