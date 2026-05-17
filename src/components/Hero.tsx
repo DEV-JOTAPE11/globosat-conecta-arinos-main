@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Satellite, Wifi, Phone } from "lucide-react";
-import heroImage from "@/assets/hero-antenna.jpg";
+import heroImage from "@/assets/hero-globosat.jpeg";
 import globosatLogo from "@/assets/globosat-logo.png";
 
 const Hero = () => {
