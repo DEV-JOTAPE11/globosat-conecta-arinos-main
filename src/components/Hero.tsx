@@ -1,7 +1,66 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Satellite, Wifi, Phone } from "lucide-react";
+import { Wifi, Phone } from "lucide-react";
 import heroImage from "@/assets/hero-globosat.jpeg";
 import globosatLogo from "@/assets/globosat-logo.png";
+
+type AnimatedNumberProps = {
+  value: number;
+  suffix?: string;
+  duration?: number;
+  delay?: number;
+};
+
+const easeOutCubic = (progress: number) => 1 - Math.pow(1 - progress, 3);
+
+const AnimatedNumber = ({ value, suffix = "", duration = 1600, delay = 0 }: AnimatedNumberProps) => {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      setDisplayValue(value);
+      return;
+    }
+
+    let animationFrame = 0;
+    let startTime: number | null = null;
+    const timeout = window.setTimeout(() => {
+      const animate = (timestamp: number) => {
+        if (startTime === null) {
+          startTime = timestamp;
+        }
+
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOutCubic(progress);
+
+        setDisplayValue(Math.round(value * easedProgress));
+
+        if (progress < 1) {
+          animationFrame = window.requestAnimationFrame(animate);
+        } else {
+          setDisplayValue(value);
+        }
+      };
+
+      animationFrame = window.requestAnimationFrame(animate);
+    }, delay);
+
+    return () => {
+      window.clearTimeout(timeout);
+      window.cancelAnimationFrame(animationFrame);
+    };
+  }, [delay, duration, value]);
+
+  return (
+    <span className="inline-block min-w-[3ch] tabular-nums">
+      {displayValue}
+      {suffix}
+    </span>
+  );
+};
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -67,19 +126,27 @@ const Hero = () => {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 animate-fade-up" style={{ animationDelay: "0.4s" }}>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
-              <div className="text-4xl font-bold mb-2">15+</div>
+              <div className="text-4xl font-bold mb-2">
+                <AnimatedNumber value={15} suffix="+" delay={250} />
+              </div>
               <div className="text-sm uppercase tracking-wide">Anos de Experiência</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
-              <div className="text-4xl font-bold mb-2">5000+</div>
+              <div className="text-4xl font-bold mb-2">
+                <AnimatedNumber value={5000} suffix="+" delay={350} />
+              </div>
               <div className="text-sm uppercase tracking-wide">Clientes Satisfeitos</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
-              <div className="text-4xl font-bold mb-2">100%</div>
+              <div className="text-4xl font-bold mb-2">
+                <AnimatedNumber value={100} suffix="%" delay={450} />
+              </div>
               <div className="text-sm uppercase tracking-wide">Garantia</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
-              <div className="text-4xl font-bold mb-2">24h</div>
+              <div className="text-4xl font-bold mb-2">
+                <AnimatedNumber value={24} suffix="h" delay={550} />
+              </div>
               <div className="text-sm uppercase tracking-wide">Suporte</div>
             </div>
           </div>
