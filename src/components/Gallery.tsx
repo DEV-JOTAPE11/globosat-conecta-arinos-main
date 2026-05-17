@@ -10,6 +10,7 @@ import {
   Truck,
   Plus,
   Store,
+  Satellite,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -18,6 +19,16 @@ import { Badge } from "@/components/ui/badge";
 
 // Destaques e Internet
 import starlinkRoof from "@/assets/starlink-roof.jpg";
+import starlinkFieldInstall from "@/assets/WhatsApp Image 2026-05-17 at 12.35.11 (1).jpeg";
+import storeCameraBoxes from "@/assets/WhatsApp Image 2026-05-17 at 12.35.11 (2).jpeg";
+import starlinkCloseOne from "@/assets/WhatsApp Image 2026-05-17 at 12.35.11 (3).jpeg";
+import starlinkCloseTwo from "@/assets/WhatsApp Image 2026-05-17 at 12.35.11 (4).jpeg";
+import starlinkStoreBox from "@/assets/WhatsApp Image 2026-05-17 at 12.35.11 (5).jpeg";
+import starlinkStoreBoxes from "@/assets/WhatsApp Image 2026-05-17 at 12.35.11 (6).jpeg";
+import storeCarCharger from "@/assets/WhatsApp Image 2026-05-17 at 12.35.11 (7).jpeg";
+import starlinkTileRoof from "@/assets/WhatsApp Image 2026-05-17 at 12.35.11 (8).jpeg";
+import starlinkMount from "@/assets/WhatsApp Image 2026-05-17 at 12.35.11 (9).jpeg";
+import starlinkRuralRoof from "@/assets/WhatsApp Image 2026-05-17 at 12.35.11.jpeg";
 import teamHughes2 from "@/assets/team-hughesnet2.jpg"; // Técnico com cliente
 import techFarm from "@/assets/tech-farm.jpg"; // Arte Tecnologia
 import hughesPole from "@/assets/hughesnet-pole.jpg"; // Antena no poste
@@ -84,6 +95,82 @@ const allMediaItems: MediaItem[] = [
     description: "Levamos a conexão até você",
   },
 
+  {
+    id: 11,
+    category: "internet",
+    src: starlinkFieldInstall,
+    alt: "Starlink instalada em área rural",
+    title: "Starlink no Campo",
+    description: "Instalação para áreas remotas",
+    badge: "Starlink",
+    highlight: true,
+  },
+  {
+    id: 12,
+    category: "internet",
+    src: starlinkCloseOne,
+    alt: "Antena Starlink instalada em telhado",
+    title: "Antena Starlink",
+    description: "Equipamento instalado em ponto alto",
+    badge: "Starlink",
+  },
+  {
+    id: 13,
+    category: "internet",
+    src: starlinkCloseTwo,
+    alt: "Close de antena Starlink instalada",
+    title: "Instalação Starlink",
+    description: "Ajuste técnico para melhor sinal",
+    badge: "Starlink",
+  },
+  {
+    id: 14,
+    category: "internet",
+    src: starlinkStoreBox,
+    alt: "Caixa Starlink disponível na loja",
+    title: "Kit Starlink",
+    description: "Venda do kit com instalação local",
+    badge: "Starlink",
+  },
+  {
+    id: 15,
+    category: "internet",
+    src: starlinkStoreBoxes,
+    alt: "Caixas Starlink à pronta entrega",
+    title: "Pronta Entrega",
+    description: "Equipamentos Starlink disponíveis",
+    badge: "Starlink",
+    highlight: true,
+  },
+  {
+    id: 16,
+    category: "internet",
+    src: starlinkTileRoof,
+    alt: "Starlink instalada em telhado de cerâmica",
+    title: "Instalação em Telhado",
+    description: "Solução para residências rurais",
+    badge: "Starlink",
+  },
+  {
+    id: 17,
+    category: "internet",
+    src: starlinkMount,
+    alt: "Suporte de fixação para Starlink",
+    title: "Suporte Starlink",
+    description: "Acessório para fixação segura",
+    badge: "Starlink",
+  },
+  {
+    id: 18,
+    category: "internet",
+    src: starlinkRuralRoof,
+    alt: "Starlink instalada em telhado rural",
+    title: "Conexão Rural",
+    description: "Internet via satélite para o campo",
+    badge: "Starlink",
+    highlight: true,
+  },
+
   // --- SEGURANÇA ---
   {
     id: 5,
@@ -137,6 +224,24 @@ const allMediaItems: MediaItem[] = [
     title: "Visite Nossa Loja",
     description: "No centro de Arinos",
   },
+  {
+    id: 19,
+    category: "loja",
+    src: storeCameraBoxes,
+    alt: "Estoque de câmeras inteligentes na loja",
+    title: "Câmeras Inteligentes",
+    description: "Produtos de segurança a pronta entrega",
+    badge: "Novo",
+  },
+  {
+    id: 20,
+    category: "loja",
+    src: storeCarCharger,
+    alt: "Carregador veicular disponível na loja",
+    title: "Acessórios Eletrônicos",
+    description: "Itens para uso diário e instalação",
+    badge: "Novo",
+  },
 ];
 
 const Gallery = () => {
@@ -144,6 +249,9 @@ const Gallery = () => {
 
   const getFilteredItems = (category: string) => {
     if (category === "todos") return allMediaItems;
+    if (category === "starlink") {
+      return allMediaItems.filter((item) => item.badge === "Starlink");
+    }
     return allMediaItems.filter((item) => item.category === category);
   };
 
@@ -158,7 +266,7 @@ const Gallery = () => {
           <div className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-1.5 rounded-full mb-4 shadow-sm">
             <Wifi className="h-4 w-4 text-blue-600" />
             <span className="font-semibold text-sm text-foreground">
-              Credenciado Starlink & HughesNet
+              Starlink, HughesNet e soluções rurais
             </span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -186,6 +294,12 @@ const Gallery = () => {
                 <Wifi className="h-4 w-4" /> Internet
               </TabsTrigger>
               <TabsTrigger
+                value="starlink"
+                className="rounded-full px-4 py-2 gap-2 data-[state=active]:bg-primary data-[state=active]:text-white"
+              >
+                <Satellite className="h-4 w-4" /> Starlink
+              </TabsTrigger>
+              <TabsTrigger
                 value="seguranca"
                 className="rounded-full px-4 py-2 gap-2 data-[state=active]:bg-primary data-[state=active]:text-white"
               >
@@ -206,7 +320,7 @@ const Gallery = () => {
             </TabsList>
           </div>
 
-          {["todos", "internet", "seguranca", "equipe", "loja"].map(
+          {["todos", "internet", "starlink", "seguranca", "equipe", "loja"].map(
             (tabValue) => {
               const items = getFilteredItems(tabValue);
               const visibleItems = items.slice(0, visibleCount);

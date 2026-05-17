@@ -77,6 +77,7 @@ const Contact = () => {
                 >
                   <option value="">Selecione um serviço</option>
                   <option value="Internet Rural">Internet Rural</option>
+                  <option value="Starlink">Starlink</option>
                   <option value="Instalação SKY">Instalação SKY</option>
                   <option value="Manutenção">Manutenção</option>
                   <option value="Câmeras">Câmeras de Segurança</option>

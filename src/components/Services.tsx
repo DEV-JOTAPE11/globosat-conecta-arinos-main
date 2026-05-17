@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Satellite, Wifi, Wrench, Camera, ArrowRight } from "lucide-react";
 
 const Services = () => {
-  // Função para rolar até a seção de contato suavemente
-  const scrollToContact = () => {
-    const element = document.getElementById("contato");
+  // Função para rolar até a seção desejada suavemente
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -22,9 +22,10 @@ const Services = () => {
     {
       icon: Wifi, 
       title: "Starlink - Alta Performance",
+      targetId: "starlink",
       description: "A internet via satélite mais avançada do mundo. Ideal para quem precisa de muita velocidade, baixa latência para jogos e chamadas de vídeo.",
       color: "secondary",
-      features: ["Alta Velocidade", "Baixa Latência", "Revenda e Instalação", "Kit a Pronta Entrega"],
+      features: ["Alta Velocidade", "Baixa Latência", "Venda e Instalação", "Kit a Pronta Entrega"],
     },
     {
       icon: Wrench,
@@ -91,7 +92,7 @@ const Services = () => {
                 <Button 
                   variant="outline" 
                   className="group-hover:bg-primary group-hover:text-primary-foreground transition-all w-full sm:w-auto"
-                  onClick={scrollToContact}
+                  onClick={() => scrollToSection(service.targetId ?? "contato")}
                 >
                   Saiba Mais
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

@@ -18,6 +18,7 @@ const Header = () => {
     { label: "Início", id: "inicio" },
     { label: "Sobre Nós", id: "sobre" },
     { label: "Serviços", id: "servicos" },
+    { label: "Starlink", id: "starlink" },
     { label: "Internet Rural", id: "internet-rural" },
     { label: "Galeria", id: "galeria" },
     { label: "Contato", id: "contato" },
